@@ -2,16 +2,18 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: Data-driven Astronomy
-author: The Jupyter Book Community
+author: Prof. Tara Murphy, Dr. Simon Murphy
 logo: logo.jpeg
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: force
-  allow_errors: true
+  allow_errors: false
 
 launch_buttons:
+  binderhub_url: "https://mybinder.org"
+  colab_url: "https://colab.research.google.com"
   notebook_interface: "jupyterlab"
   thebe: true
 
