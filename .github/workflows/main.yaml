@@ -32,4 +32,4 @@ jobs:
         git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
         git config --global user.name "$GITHUB_ACTOR"
         git remote set-url origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
-        ghp-import _build/html -f -p -n
+        ghp-import data_driven_astronomy/_build/html -f -p -n
