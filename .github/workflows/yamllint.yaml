@@ -21,4 +21,4 @@ jobs:
         run: pip install yamllint
 
       - name: Run YAML linter
-        run: yamllint ${{ inputs.args }}
+        run: yamllint .
