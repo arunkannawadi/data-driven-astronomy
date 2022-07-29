@@ -18,6 +18,7 @@ jobs:
     - name: Install Python dependencies
       run: |
         sudo apt-get install python3-pip
+        pip install poetry
         poetry install
         poetry run ipython kernel install --user --name=data-driven-astronomy
         pip install ghp-import
