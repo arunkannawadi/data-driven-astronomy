@@ -1,0 +1,6 @@
+_build/*
+*.code-workspace
+.DS_Store
+*.ipynb_checkpoints
+*.swp
+*.vscode
