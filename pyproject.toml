@@ -10,7 +10,7 @@ scipy = "^1.9.0"
 pydotplus = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^7.1"
 jupyter-book = "^0.13.0"
 pre-commit = "^2.20.0"
 yamllint = "^1.27.1"
