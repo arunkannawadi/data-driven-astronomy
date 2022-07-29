@@ -6,7 +6,7 @@ authors = ["arunkannawadi <kj.arun.kj@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "3.8.*"
-scipy = "^1.8.1"
+scipy = "^1.9.0"
 pydotplus = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
