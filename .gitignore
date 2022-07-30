@@ -1,7 +1,8 @@
 _build/*
-data-driven-astronomy/_build/*
+*/_build/*
 *.code-workspace
 .DS_Store
+*.env
 *.ipynb_checkpoints
 *.swp
 *.vscode
