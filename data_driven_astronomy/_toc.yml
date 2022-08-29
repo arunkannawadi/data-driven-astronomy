@@ -4,9 +4,15 @@
 format: jb-book
 root: intro
 chapters:
-  - file: 2_crossmatching
+  - file: week2/2_crossmatching
     sections:
-      - file: 2a
-      - file: 2b
-      - file: 2c
-      - file: 2d
+      - file: notebooks/week2/2a
+      - file: week2/2b
+      - file: notebooks/week2/2c
+      - file: notebooks/week2/2d
+  - file: notebooks/week3/3
+    sections:
+      - file: notebooks/week3/3a
+  - file: notebooks/5a
+    sections:
+      - file: notebooks/5b
