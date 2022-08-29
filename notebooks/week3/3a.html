@@ -1,0 +1,1308 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>What is a database? &#8212; Data-driven Astronomy</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Photometric redshifts - Introduction" href="../5a.html" />
+    <link rel="prev" title="Writing your own SQL queries" href="3.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.jpeg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data-driven Astronomy</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../week2/2_crossmatching.html">
+   Week 2: Cross-matching
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../week2/2a.html">
+     Right ascension and Declination
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../week2/2b.html">
+     Angular distance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../week2/2c.html">
+     Implementing angular distance calculator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../week2/2d.html">
+     Cross-matching catalogues
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="3.html">
+   Writing your own SQL queries
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     What is a database?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../5a.html">
+   Photometric redshifts - Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../5b.html">
+     Improving and evaluating our classifier
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/arunkannawadi/data-driven-astronomy/main?urlpath=lab/tree/data_driven_astronomy/notebooks/week3/3a.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/arunkannawadi/data-driven-astronomy/blob/main/data_driven_astronomy/notebooks/week3/3a.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy/issues/new?title=Issue%20on%20page%20%2Fnotebooks/week3/3a.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy/edit/main/data_driven_astronomy/notebooks/week3/3a.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/notebooks/week3/3a.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   What is a database?
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#databases-and-sql">
+   Databases and SQL
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sql-queries">
+     SQL queries
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-large-stars">
+   Exercise: Large stars
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conditional-queries">
+   Conditional queries
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-conditions">
+     Combining conditions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-a-range-of-hot-stars">
+   Exercise: A range of hot stars
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#looking-at-a-database-structure">
+   Looking at a database structure
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#null-values-in-sql">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     NULL
+    </span>
+   </code>
+   values in SQL
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-confirmed-exoplanets">
+   Exercise: Confirmed Exoplanets
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#counting-table-entries">
+   Counting table entries
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-statistics-and-aggregate-functions">
+   Data statistics and aggregate functions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ordering-results-and-limiting-output">
+   Ordering results and limiting output
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-planet-statistics">
+   Exercise: Planet statistics
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#managing-data-subsets">
+   Managing data subsets
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#limited-counting">
+   Limited counting
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-planets-in-multi-planet-systems">
+   Exercise: Planets in multi-planet systems
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>What is a database?</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   What is a database?
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#databases-and-sql">
+   Databases and SQL
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sql-queries">
+     SQL queries
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-large-stars">
+   Exercise: Large stars
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conditional-queries">
+   Conditional queries
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-conditions">
+     Combining conditions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-a-range-of-hot-stars">
+   Exercise: A range of hot stars
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#looking-at-a-database-structure">
+   Looking at a database structure
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#null-values-in-sql">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     NULL
+    </span>
+   </code>
+   values in SQL
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-confirmed-exoplanets">
+   Exercise: Confirmed Exoplanets
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#counting-table-entries">
+   Counting table entries
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-statistics-and-aggregate-functions">
+   Data statistics and aggregate functions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ordering-results-and-limiting-output">
+   Ordering results and limiting output
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-planet-statistics">
+   Exercise: Planet statistics
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#managing-data-subsets">
+   Managing data subsets
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#limited-counting">
+   Limited counting
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-planets-in-multi-planet-systems">
+   Exercise: Planets in multi-planet systems
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="what-is-a-database">
+<h1>What is a database?<a class="headerlink" href="#what-is-a-database" title="Permalink to this headline">#</a></h1>
+<p>A database is an organised collection of (usually structured) data.</p>
+<p>We have created a database with two tables, Star and Planet, which store information about stars and their exoplanets, sampled from the <a class="reference external" href="http://exoplanetarchive.ipac.caltech.edu/">NASA exoplanet archive</a>.</p>
+<p>The following schematic visualises the organisation in these tables.
+They each have a set of attributes that identify and characterise the astronomical object.</p>
+<p>For reference, we’ve listed the physical descriptions of all the attributes above so that later on you can come back to this slide if you’re unsure what they mean.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Kepler ID</p></td>
+<td><p>Unique target identification number for stars</p></td>
+</tr>
+<tr class="row-odd"><td><p>KOI name</p></td>
+<td><p>String identifier for the Kepler Object of Interest (KOI)</p></td>
+</tr>
+<tr class="row-even"><td><p>Teff (K)</p></td>
+<td><p>Effective temperature of a star in Kelvin</p></td>
+</tr>
+<tr class="row-odd"><td><p>Radius</p></td>
+<td><p>Radius of stars and planets in units of solar radius/earth radius respectively</p></td>
+</tr>
+<tr class="row-even"><td><p>Kepler name</p></td>
+<td><p>Unique string identifier for a confirmed exoplanet in the planet table</p></td>
+</tr>
+<tr class="row-odd"><td><p>Period</p></td>
+<td><p>Orbital period of a planet in units of days</p></td>
+</tr>
+<tr class="row-even"><td><p>Status</p></td>
+<td><p>Status of a discovered KOI in the planet table, e.g. “confirmed” or “false positive”</p></td>
+</tr>
+<tr class="row-odd"><td><p>Teq</p></td>
+<td><p>Equilibrium temperature of a planet in Kelvin</p></td>
+</tr>
+</tbody>
+</table>
+<p>Kepler is a mission that measures the brightness variation of about 200,000 stars.
+You can read more about this groundbreaking survey and access its data products at <a class="reference external" href="https://archive.stsci.edu/missions-and-data/kepler">https://archive.stsci.edu/missions-and-data/kepler</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span>
+<span class="n">engine_name</span> <span class="o">=</span> <span class="s2">&quot;sqlite:///foo.db&quot;</span>
+<span class="n">sqlalchemy</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span><span class="n">engine_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Engine(sqlite:///foo.db)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> sql
+<span class="o">%</span><span class="k">sql</span> sqlite:///foo.db
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="databases-and-sql">
+<h1>Databases and SQL<a class="headerlink" href="#databases-and-sql" title="Permalink to this headline">#</a></h1>
+<p>SQL (Structured Query Language) is the most widely used database query language.
+SQL is designed especially for data management in relational databases.
+In this course, we’ll use the SQLite implementation of SQL (Grok exercises use Postgresql, but it shouldn’t matter for thess exercises).</p>
+<p>Let’s use SQL to query the database from the previous slide.
+Every query takes one or more tables as arguments and returns a new table with the requested data.
+A simple example is shown below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+SELECT * FROM Planet;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UsageError: Cell magic `%%sql` not found.
+</pre></div>
+</div>
+</div>
+</div>
+<p>This query returns all the entries in the <strong>Planet</strong> table.
+The <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> keyword starts the query.
+The next part of the statement defines the attributes to be returned, here a * means all attributes are to be included.
+Lastly, the <code class="docutils literal notranslate"><span class="pre">FROM</span></code> clause specifies which table(s) to query.
+Every SQL statement ends with a semicolon.</p>
+<p>Replace <strong>Planet</strong> above with <strong>Star</strong> to look at the other table.</p>
+<div class="admonition-cases-in-sql admonition">
+<p class="admonition-title">Cases in SQL</p>
+<p>SQL keywords are case insensitive, i.e. <code class="docutils literal notranslate"><span class="pre">Select</span></code> or <code class="docutils literal notranslate"><span class="pre">select</span></code> have the same effect than the capitalised version.</p>
+<p>However, comparisons are not necessarily case insensitive.</p>
+</div>
+<section id="sql-queries">
+<h2>SQL queries<a class="headerlink" href="#sql-queries" title="Permalink to this headline">#</a></h2>
+<p>In the previous example, we requested everything from the <strong>Planet</strong> table.
+Now let’s try extracting specific information.</p>
+<ol class="simple">
+<li><p><strong>Specifying the attributes (or columns)</strong>
+Rather than retrieving all (*) attributes from a table, we can select specific columns right after the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> keyword:</p></li>
+</ol>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">koi_name</span><span class="p">,</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This query returns only the KOI names and the radii of the planets in our <code class="docutils literal notranslate"><span class="pre">Planet</span></code> table.</p>
+<ol class="simple">
+<li><p><strong>Formulating conditions</strong>
+SQL queries are typically conditional – you only request data which meets certain conditions.
+In simple cases, we can make a conditional query using the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause with comparisons like:</p></li>
+</ol>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">koi_name</span><span class="p">,</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The &lt; operator returns a true or false (Boolean) for each planet radius.
+This query returns all the planets which have a radius smaller than two (measured in earth radii).</p>
+</section>
+</section>
+<section id="exercise-large-stars">
+<h1>Exercise: Large stars<a class="headerlink" href="#exercise-large-stars" title="Permalink to this headline">#</a></h1>
+<p>Write an SQL query to find the radius and temperature of the stars in the Star table that are larger than our sun.</p>
+<p>The output of your query should look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+--------+-------+</span>
+<span class="o">|</span> <span class="n">radius</span> <span class="o">|</span> <span class="n">t_eff</span> <span class="o">|</span>
+<span class="o">+--------+-------+</span>
+<span class="o">|</span>  <span class="mf">3.523</span> <span class="o">|</span>  <span class="mi">6335</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mf">1.965</span> <span class="o">|</span>  <span class="mi">8782</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mf">1.032</span> <span class="o">|</span>  <span class="mi">6319</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mf">27.384</span> <span class="o">|</span>  <span class="mi">3789</span> <span class="o">|</span>
+<span class="o">+--------+-------+</span>
+<span class="p">(</span><span class="mi">4</span> <span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Hint</p>
+<p>The radii in these tables are specified in units of the radius of our sun, e.g. a radius of 2 means a star is twice as big as the sun.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+# Write your SQL query here.
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UsageError: Cell magic `%%sql` not found.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conditional-queries">
+<h1>Conditional queries<a class="headerlink" href="#conditional-queries" title="Permalink to this headline">#</a></h1>
+<p>As you’ve seen previously, we can use comparison operators like &lt; and &gt; for conditional queries.
+In general, SQL includes a standard set of Boolean operators, e.g. <code class="docutils literal notranslate"><span class="pre">AND</span></code> or <code class="docutils literal notranslate"><span class="pre">NOT</span></code>.</p>
+<p>To experiment with the different operators, we can use them directly in the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement like this:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The output of every query, regardless of whether a table is queried or not, is a table.
+The <strong>t</strong> and <strong>f</strong> here stand for true and false.</p>
+<p>The numerical comparison operators also work on strings, which are declared using single quotation marks:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;abc&#39;</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;abcd&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;abc&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ABC&#39;</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Note that while SQL syntax is case insensitive, strings are not.
+If you’re unsure what capitalisation is used in an attribute, you can use the <strong>UPPER</strong> or <strong>LOWER</strong> function to convert the attribute and then perform the comparison:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="k">UPPER</span><span class="p">(</span><span class="s1">&#39;aBc&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ABC&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">LOWER</span><span class="p">(</span><span class="s1">&#39;aBc&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;abc&#39;</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<section id="combining-conditions">
+<h2>Combining conditions<a class="headerlink" href="#combining-conditions" title="Permalink to this headline">#</a></h2>
+<p>We can also combine conditions in a WHERE clause using for example the logical and:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>+----------+
+| ?column? |
++----------+
+| t        |
++----------+
+(1 row)
+</pre></div>
+</div>
+<p>This allows us to, for example, perform range queries over a set of data.
+Suppose we want to find all the stars in our <code class="docutils literal notranslate"><span class="pre">Star</span></code> table whose radius lies between one and two earth radii, we could write:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Star</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Since range queries are quite common, SQL provides its own syntax for these queries using the <code class="docutils literal notranslate"><span class="pre">BETWEEN</span></code> statement.
+With this, we can rewrite the query from above in a more readable form as:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">FROM</span><span class="w">  </span><span class="n">Star</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">BETWEEN</span></code> comparisons are inclusive on both end points, so the two queries above are equivalent.</p>
+</section>
+</section>
+<section id="exercise-a-range-of-hot-stars">
+<h1>Exercise: A range of hot stars<a class="headerlink" href="#exercise-a-range-of-hot-stars" title="Permalink to this headline">#</a></h1>
+<p>Your task is to write a range query which returns the <strong>kepler_id</strong> and the <strong>t_eff</strong> attributes of all those stars in the <code class="docutils literal notranslate"><span class="pre">Star</span></code> table whose temperature lies between 5000 and 6000 Kelvin (inclusive).</p>
+<p>Your results on the example table should look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------+-------+</span>
+<span class="o">|</span> <span class="n">kepler_id</span> <span class="o">|</span> <span class="n">t_eff</span> <span class="o">|</span>
+<span class="o">+-----------+-------+</span>
+<span class="o">|</span>   <span class="mi">3836450</span> <span class="o">|</span>  <span class="mi">5160</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">6590362</span> <span class="o">|</span>  <span class="mi">5926</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">8106973</span> <span class="o">|</span>  <span class="mi">5810</span> <span class="o">|</span>
+<span class="o">+-----------+-------+</span>
+<span class="p">(</span><span class="mi">3</span> <span class="n">rows</span><span class="p">)</span>
+<span class="o">+-----------+-------+</span>
+<span class="o">|</span> <span class="n">kepler_id</span> <span class="o">|</span> <span class="n">t_eff</span> <span class="o">|</span>
+<span class="o">+-----------+-------+</span>
+<span class="o">|</span>   <span class="mi">3836450</span> <span class="o">|</span>  <span class="mi">5160</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">6590362</span> <span class="o">|</span>  <span class="mi">5926</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">8106973</span> <span class="o">|</span>  <span class="mi">5810</span> <span class="o">|</span>
+<span class="o">+-----------+-------+</span>
+<span class="p">(</span><span class="mi">3</span> <span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+# Write your SQL query here
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="looking-at-a-database-structure">
+<h1>Looking at a database structure<a class="headerlink" href="#looking-at-a-database-structure" title="Permalink to this headline">#</a></h1>
+<p>To query a table, we need to know what columns it contains.
+If we haven’t got any information about the table, we can use the <code class="docutils literal notranslate"><span class="pre">\d</span></code> statement to get a description of the table’s columns:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>\d Planet;
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>              <span class="n">Table</span> <span class="s2">&quot;public.planet&quot;</span>
+<span class="o">+-------------+-----------------------+-----------+</span>
+<span class="o">|</span>   <span class="n">Column</span>    <span class="o">|</span>         <span class="n">Type</span>          <span class="o">|</span> <span class="n">Modifiers</span> <span class="o">|</span>
+<span class="o">+-------------+-----------------------+-----------+</span>
+<span class="o">|</span> <span class="n">kepler_id</span>   <span class="o">|</span> <span class="n">integer</span>               <span class="o">|</span> <span class="ow">not</span> <span class="n">null</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="n">koi_name</span>    <span class="o">|</span> <span class="n">character</span> <span class="n">varying</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">|</span> <span class="ow">not</span> <span class="n">null</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="n">kepler_name</span> <span class="o">|</span> <span class="n">character</span> <span class="n">varying</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">|</span>           <span class="o">|</span>
+<span class="o">|</span> <span class="n">status</span>      <span class="o">|</span> <span class="n">character</span> <span class="n">varying</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">|</span>           <span class="o">|</span>
+<span class="o">|</span> <span class="n">period</span>      <span class="o">|</span> <span class="n">double</span> <span class="n">precision</span>      <span class="o">|</span>           <span class="o">|</span>
+<span class="o">|</span> <span class="n">radius</span>      <span class="o">|</span> <span class="n">real</span>                  <span class="o">|</span>           <span class="o">|</span>
+<span class="o">|</span> <span class="n">t_eq</span>        <span class="o">|</span> <span class="n">integer</span>               <span class="o">|</span>           <span class="o">|</span>
+<span class="o">+-------------+-----------------------+-----------+</span>
+<span class="n">Indexes</span><span class="p">:</span>
+    <span class="s2">&quot;planet_pkey&quot;</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span> <span class="n">btree</span> <span class="p">(</span><span class="n">koi_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">\d</span></code> returns a description each column: its name, data type and optional modifiers.
+The data types above are mostly types that we’ve seen before.
+The type <code class="docutils literal notranslate"><span class="pre">character</span> <span class="pre">varying(20)</span></code> indicates that this column can hold up to 20 characters.
+We will have a closer look at these types in later activities.</p>
+<p>Some columns have a <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">null</span></code> modifier.
+This means that when adding data to this table, these attributes must be specified.
+Other attributes can be left blank.
+The concept of a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value in SQL is quite important, so we will have a closer look at that.</p>
+</section>
+<section id="null-values-in-sql">
+<h1><code class="docutils literal notranslate"><span class="pre">NULL</span></code> values in SQL<a class="headerlink" href="#null-values-in-sql" title="Permalink to this headline">#</a></h1>
+<p>In our <code class="docutils literal notranslate"><span class="pre">Planet</span></code> table, not all exoplanets have a Kepler name because they aren’t all confirmed planets.
+In SQL, missing values are represented by <code class="docutils literal notranslate"><span class="pre">NULL</span></code> values, which are equivalent to an empty field.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is <strong>not</strong> equivalent to an empty string:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w">  </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w"> </span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>+----------+
+| ?column? |
++----------+
+|          |
++----------+
+(1 row)
+</pre></div>
+</div>
+<p>What’s this?
+The query returns an empty field, or, to be precise, it returns a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value.</p>
+<p>This is a peculiarity of SQL databases – comparison operators cannot return true or false here since the <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value is unknown.
+If we want to find out whether an attribute is actually a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value, we have to use the <code class="docutils literal notranslate"><span class="pre">IS</span></code> comparison:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>+----------+
+| ?column? |
++----------+
+| t        |
++----------+
+(1 row)
+</pre></div>
+</div>
+<p>With this, you can also check that the first query with the <code class="docutils literal notranslate"><span class="pre">=</span></code> operator actually returns a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-confirmed-exoplanets">
+<h1>Exercise: Confirmed Exoplanets<a class="headerlink" href="#exercise-confirmed-exoplanets" title="Permalink to this headline">#</a></h1>
+<p>In this question you should write a query to find the <strong>kepler_name</strong> and <strong>radius</strong> of each planet in the <code class="docutils literal notranslate"><span class="pre">Planet</span></code> table which is a confirmed exoplanet, meaning that their <strong>kepler_name</strong> is not <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, or, equivalently, whose status is <code class="docutils literal notranslate"><span class="pre">'CONFIRMED'</span></code>.</p>
+<p>Restrict your results to those planets whose radius lies between one and three earth radii, and remember that the radius of the planets is relative to the earth radius.</p>
+<p>Your query should produce a table like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+--------------+--------+</span>
+<span class="o">|</span> <span class="n">kepler_name</span>  <span class="o">|</span> <span class="n">radius</span> <span class="o">|</span>
+<span class="o">+--------------+--------+</span>
+<span class="o">|</span> <span class="n">Kepler</span><span class="o">-</span><span class="mi">10</span> <span class="n">b</span>  <span class="o">|</span>   <span class="mf">1.45</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">Kepler</span><span class="o">-</span><span class="mi">106</span> <span class="n">c</span> <span class="o">|</span>   <span class="mf">2.35</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">Kepler</span><span class="o">-</span><span class="mi">52</span> <span class="n">d</span>  <span class="o">|</span>    <span class="mf">1.8</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">Kepler</span><span class="o">-</span><span class="mi">239</span> <span class="n">b</span> <span class="o">|</span>   <span class="mf">2.36</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">Kepler</span><span class="o">-</span><span class="mi">239</span> <span class="n">c</span> <span class="o">|</span>   <span class="mf">2.19</span> <span class="o">|</span>
+<span class="o">+--------------+--------+</span>
+<span class="p">(</span><span class="mi">5</span> <span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+# Write your SQL query here
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UsageError: Cell magic `%%sql` not found.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="counting-table-entries">
+<h1>Counting table entries<a class="headerlink" href="#counting-table-entries" title="Permalink to this headline">#</a></h1>
+<p>As databases increase in size, printing out a full table of all the requested data might not be instructive anymore or even feasible.
+In these cases, we can in principle make the query more specific to limit the results, but if we don’t know a priori what results to expect, we need a better way of characterising the size and statistics of the data and to limit the overall results.</p>
+<p>As opposed to returning the requested data in table format, we can use the <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> function to only return the number of rows in the table we requested.
+To count, for example, all planets in the <strong>Planet</strong> table, we can use it like this:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>From here on, we’re going to use larger tables; have a look at how many stars and planets there are now.</p>
+<p>We can combine counting with all of the other SQL statements that we have seen before. It effectively replaces the attributes that you request right after the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement. Counting only the confirmed planets would for example work like this:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">kepler_name</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="data-statistics-and-aggregate-functions">
+<h1>Data statistics and aggregate functions<a class="headerlink" href="#data-statistics-and-aggregate-functions" title="Permalink to this headline">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> function that we’ve seen on the last slide belongs to SQL’s aggregate functions.
+An aggregate function returns a single value which was calculated based on one or more columns.</p>
+<p>SQL offers a range of aggregate functions which are very valuable for extracting some statistical information from databases.
+Knowing what data, or what range of data to expect can help to make a query more specific.
+A few useful functions are for example:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Returns</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>COUNT</p></td>
+<td><p>Number of rows returned</p></td>
+</tr>
+<tr class="row-odd"><td><p>MIN</p></td>
+<td><p>Minimum value of a column</p></td>
+</tr>
+<tr class="row-even"><td><p>MAX</p></td>
+<td><p>Maximum value of a column</p></td>
+</tr>
+<tr class="row-odd"><td><p>SUM</p></td>
+<td><p>Sum over the column</p></td>
+</tr>
+<tr class="row-even"><td><p>AVG</p></td>
+<td><p>Mean (average) value of a column</p></td>
+</tr>
+<tr class="row-odd"><td><p>STDDEV</p></td>
+<td><p>Standard deviation of a column</p></td>
+</tr>
+</tbody>
+</table>
+<p>Let’s have a look at a few examples:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">radius</span><span class="p">),</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">radius</span><span class="p">),</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>We could also calculate an average ourselves using the division operator / in the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> clause and compare it to the built-in <code class="docutils literal notranslate"><span class="pre">AVG</span></code>:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">t_eff</span><span class="p">)</span><span class="o">/</span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">t_eff</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Star</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Look at the two results this query returns.
+Why are they different?
+The reason here is that the attribute <strong>t_eff</strong> is an integer and SQL then automatically performs integer division upon the / operator.</p>
+<div class="tip admonition">
+<p class="admonition-title">Integer division</p>
+<p>Keep in mind that SQL performs integer division on integers, i.e. only an integer value is returned. For example:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Sometimes this might not be what you want so keep an eye out.</p>
+</div>
+</section>
+<section id="ordering-results-and-limiting-output">
+<h1>Ordering results and limiting output<a class="headerlink" href="#ordering-results-and-limiting-output" title="Permalink to this headline">#</a></h1>
+<p>The rows in a table may not be sorted in a useful order.
+In our tables, they appear in the order in which the stars and planets were added to the database.</p>
+<p>We can use an <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause to change the sort order.
+To sort the planets by their radius in descending order, we can write:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">koi_name</span><span class="p">,</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">DESC</span></code> stands for descending order; for ascending order we use <code class="docutils literal notranslate"><span class="pre">ASC</span></code> or put nothing.</p>
+<p>In addition to sorting, we can restrict the number of rows returned using the <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> clause.
+If we are only interested in the five largest planets we could write:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">koi_name</span><span class="p">,</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">DESC</span><span class="w"></span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This limits the results to the first five rows (after sorting).
+The ability to limit results becomes especially valuable in large databases, where the data volume can severely impact performance.</p>
+</section>
+<section id="exercise-planet-statistics">
+<h1>Exercise: Planet statistics<a class="headerlink" href="#exercise-planet-statistics" title="Permalink to this headline">#</a></h1>
+<p>Let’s analyse the size of the unconfirmed exoplanets.</p>
+<p>Your task is to write a query that calculates the:</p>
+<ul class="simple">
+<li><p>minimum radius;</p></li>
+<li><p>maximum radius;</p></li>
+<li><p>average radius; and</p></li>
+<li><p>standard deviation of the radii</p></li>
+<li></li>
+</ul>
+<p>of unconfirmed planets (with a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value in <strong>kepler_name</strong>) in the <code class="docutils literal notranslate"><span class="pre">Planet</span></code> table.
+It should look like this on the example data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+------+---------+------------------+------------------+</span>
+<span class="o">|</span> <span class="nb">min</span>  <span class="o">|</span>   <span class="nb">max</span>   <span class="o">|</span>       <span class="n">avg</span>        <span class="o">|</span>      <span class="n">stddev</span>      <span class="o">|</span>
+<span class="o">+------+---------+------------------+------------------+</span>
+<span class="o">|</span> <span class="mf">0.65</span> <span class="o">|</span> <span class="mf">3462.25</span> <span class="o">|</span> <span class="mf">275.517333333333</span> <span class="o">|</span> <span class="mf">888.709924452829</span> <span class="o">|</span>
+<span class="o">+------+---------+------------------+------------------+</span>
+<span class="p">(</span><span class="mi">1</span> <span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-on-a-side-note admonition">
+<p class="admonition-title">On a side note …</p>
+<p>Remember what you’ve learned about the mean as a statistic.
+Is this a good choice for the planet data we have here?</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+# Write your SQL query here.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="managing-data-subsets">
+<h1>Managing data subsets<a class="headerlink" href="#managing-data-subsets" title="Permalink to this headline">#</a></h1>
+<p>What if we want to work with subsets of the table simultaneously?</p>
+<p>But first of all, what do we mean by working with different subsets simultaneously?
+Imagine the following problem: we want to find out if there are multiple planets within the <code class="docutils literal notranslate"><span class="pre">Planet</span></code> table that have the same size, as measured by their radius.
+How can we do that?
+We can write a simple query in which we order the results such that we can see multiple occurences of the same radius:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="k">asc</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>But this is not really useful to look at.
+Much better would be, if we could count the radii which occur multiple times in the table.</p>
+<p>For situations like this, we can use the <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause, which arranges identical data in groups on which we can perform aggregate functions, like <code class="docutils literal notranslate"><span class="pre">COUNT</span></code>.
+To solve our problem from above, we can query the table like this:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">radius</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">koi_name</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This query returns a table which is grouped by the planet radii, and contains the radii and the number of <strong>koi_names</strong> belonging to each radius.
+We decided to count the <strong>koi_name</strong> attribute since this attribute is unique for each planet.</p>
+<p>This solution still produces a somewhat lenghty table, but it’s a lot better than our first approach.
+Let’s have a look at how we can refine this.</p>
+</section>
+<section id="limited-counting">
+<h1>Limited counting<a class="headerlink" href="#limited-counting" title="Permalink to this headline">#</a></h1>
+<p>If we want to restrict the results from the last slide to only those where the count is larger than one, we can add a condition for this value. Previously, we’ve added conditions using the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause, but if we try the following:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">radius</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">koi_name</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">koi_name</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The query fails because <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> gets processed before the ``GROUP BY clause and does therefore not have access to aggregate functions.</p>
+<p>In order to use aggregate functions in our conditions, we require the <code class="docutils literal notranslate"><span class="pre">HAVING</span></code> statement instead of <code class="docutils literal notranslate"><span class="pre">WHERE</span></code>, which gets called after the <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> clause:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">radius</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">koi_name</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">radius</span><span class="w"></span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">koi_name</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+--------+-------+</span>
+<span class="o">|</span> <span class="n">radius</span> <span class="o">|</span> <span class="n">count</span> <span class="o">|</span>
+<span class="o">+--------+-------+</span>
+<span class="o">|</span>    <span class="mf">3.1</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mf">2.71</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mf">3.07</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mf">3.62</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>    <span class="mf">2.7</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mf">2.33</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mf">2.72</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">+--------+-------+</span>
+<span class="p">(</span><span class="mi">7</span> <span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Other attributes can still be used in <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> conditions, just as we saw before:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">radius</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">koi_name</span><span class="p">)</span><span class="w"> </span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Planet</span><span class="w"> </span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">t_eq</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">1000</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">radius</span><span class="w"></span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">koi_name</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-planets-in-multi-planet-systems">
+<h1>Exercise: Planets in multi-planet systems<a class="headerlink" href="#exercise-planets-in-multi-planet-systems" title="Permalink to this headline">#</a></h1>
+<p>You need to find out how many planets in the<code class="docutils literal notranslate"> <span class="pre">Planet</span></code> database are in a multi-planet system.
+Planets sharing the same star will have the same <strong>kepler_id</strong>, but different <strong>koi_name</strong> values.</p>
+<p>Your query should return a table in which each row contains the <strong>kepler_id</strong> of the star and the number of planets orbiting that star (i.e. that share this <strong>kepler_id</strong>).</p>
+<p>Limit your results to counts above one and order the rows in descending order based on the number of planets.</p>
+<p>The results should look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------+-------+</span>
+<span class="o">|</span> <span class="n">kepler_id</span> <span class="o">|</span> <span class="n">count</span> <span class="o">|</span>
+<span class="o">+-----------+-------+</span>
+<span class="o">|</span>   <span class="mi">4139816</span> <span class="o">|</span>     <span class="mi">4</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">8395660</span> <span class="o">|</span>     <span class="mi">4</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">10910878</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">10872983</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">5358241</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">10601284</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">3832474</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">11754553</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">9579641</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">12366084</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">11018648</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">11918099</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">12066335</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">10187017</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">10797460</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">3342970</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">12470844</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">5456651</span> <span class="o">|</span>     <span class="mi">2</span> <span class="o">|</span>
+<span class="o">+-----------+-------+</span>
+<span class="p">(</span><span class="mi">18</span> <span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Hint</p>
+<p>You will need to group the results based on the <strong>kepler_id</strong> attribute.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+# Write your SQL query here
+</pre></div>
+</div>
+</div>
+</div>
+<p>Congratulations, you’ve finished this set of activities.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "arunkannawadi/data-driven-astronomy",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "data-driven-astronomy"
+        },
+        kernelOptions: {
+            kernelName: "data-driven-astronomy",
+            path: "./notebooks/week3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'data-driven-astronomy'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="3.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Writing your own SQL queries</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../5a.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Photometric redshifts - Introduction</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Tara Murphy, Dr. Simon Murphy<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

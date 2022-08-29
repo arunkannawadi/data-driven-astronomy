@@ -1,0 +1,1212 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Improving and evaluating our classifier &#8212; Data-driven Astronomy</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Photometric redshifts - Introduction" href="5a.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.jpeg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data-driven Astronomy</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../week2/2_crossmatching.html">
+   Week 2: Cross-matching
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="week2/2a.html">
+     Right ascension and Declination
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../week2/2b.html">
+     Angular distance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="week2/2c.html">
+     Implementing angular distance calculator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="week2/2d.html">
+     Cross-matching catalogues
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week3/3.html">
+   Writing your own SQL queries
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="week3/3a.html">
+     What is a database?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="5a.html">
+   Photometric redshifts - Introduction
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Improving and evaluating our classifier
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/arunkannawadi/data-driven-astronomy/main?urlpath=lab/tree/data_driven_astronomy/notebooks/5b.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/arunkannawadi/data-driven-astronomy/blob/main/data_driven_astronomy/notebooks/5b.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy/issues/new?title=Issue%20on%20page%20%2Fnotebooks/5b.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy/edit/main/data_driven_astronomy/notebooks/5b.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/5b.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Improving and evaluating our classifier
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-of-results">
+     Discussion of results
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cross-validation">
+   Cross validation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-kfold-cross-validation">
+   Exercise: KFold cross validation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cross-validation-of-predictions">
+   Cross validation of predictions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-kfold-cross-validated-predictions">
+   Exercise: KFold Cross Validated Predictions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-fold-discussion">
+   K-Fold discussion
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#qso-vs-galaxies">
+   QSO vs Galaxies
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-qso-and-galaxy">
+   Exercise: QSO and Galaxy
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#qso-discussion">
+   QSO discussion
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Improving and evaluating our classifier</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Improving and evaluating our classifier
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-of-results">
+     Discussion of results
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cross-validation">
+   Cross validation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-kfold-cross-validation">
+   Exercise: KFold cross validation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cross-validation-of-predictions">
+   Cross validation of predictions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-kfold-cross-validated-predictions">
+   Exercise: KFold Cross Validated Predictions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-fold-discussion">
+   K-Fold discussion
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#qso-vs-galaxies">
+   QSO vs Galaxies
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-qso-and-galaxy">
+   Exercise: QSO and Galaxy
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#qso-discussion">
+   QSO discussion
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="improving-and-evaluating-our-classifier">
+<h1>Improving and evaluating our classifier<a class="headerlink" href="#improving-and-evaluating-our-classifier" title="Permalink to this headline">#</a></h1>
+<p>In start this activity by looking at how decision trees tend to overfit the data if they are left unchecked. Over fitting the data means they try to account for the outlying data points at the cost of the prediction accuracy of the general trend.</p>
+<p>We will also look at k-fold cross validation. This is a more robust method of validation than the held-out method we used previously.</p>
+<p>In k-fold cross validation, we can test every example once. This is done by splitting the data set into <span class="math notranslate nohighlight">\(k\)</span> subsets and training/testing the model <span class="math notranslate nohighlight">\(k\)</span> times using different combinations of the subsets.</p>
+<p>Finally, we look at how accurate our model is on QSOs compared with other galaxies. As mentioned in the lectures, QSOs are galaxies that have an Active Galactic Nucleus (AGN). The AGN makes the galaxy brighter and as such they are detectable with the SDSS instruments out to much higher redshifts.</p>
+<p>We will use the same data set as the first activity and even some of functions we wrote in previous questions.</p>
+<p>Decision trees have many advantages: they are simple to implement, easy to interpret, the data doesn’t require too much preparation, and they are reasonably efficient computationally.</p>
+<p>Decision trees do have some limitations though, one of the biggest being they tend to over fit the data. What this means is that if they are left unchecked they will create an overly complicated tree that attempts to account for outliers in the data. This comes at the expense of the accuracy of the general trend.</p>
+<p>Part of the reason for this over-fitting is that the algorithm works by trying to optimise the decision locally at each node. There are ways in which this can be mitigated and in the next problem we will see how constraining the number of decision node rows (the tree depth) impacts on the accuracy of our predictions.</p>
+<p>In order to see how the tree is overfitting we would like to examine how our decision tree performs for different tree depths. Specifically, we would like to see how it performs on test data compared to the data that was used to train it.</p>
+<p>Naïvely we’d expect, the deeper the tree, the better it should perform. However, as the model overfits we see a difference in its accuracy on the training data and the more general testing data.</p>
+<p>We can control the depth of decision tree learned, using an argument to <code class="docutils literal notranslate"><span class="pre">DecisionTreeRegressor</span></code>. For example, to set the maximum depth to 5:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Complete the function <code class="docutils literal notranslate"><span class="pre">accuracy_by_treedepth</span></code>. The function should return the median difference for both the testing and training data sets for each of the tree depths in depths.</p>
+<p><code class="docutils literal notranslate"><span class="pre">accuracy_by_treedepth</span></code> should take the following arguments:</p>
+<ul class="simple">
+<li><p>features and targets (as in previous problems);</p></li>
+<li><p>depths: an array of tree depths to be used as the max_depth of the decision tree regressor.</p></li>
+</ul>
+<p>Your function should return two lists (or arrays) containing the median_diff values for the predictions made on the training and test sets using the maximum tree depths given by the depths.</p>
+<p>For example, if <code class="docutils literal notranslate"><span class="pre">depths</span></code> is <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">5,</span> <span class="pre">7]</span></code>, then your function should return two lists of length 3. You can choose the size of the split between your testing and training data (if in doubt, 50:50 is fine).</p>
+<p>We’ve included code to plot the differences as a function of tree depths. You should take a moment to familiarise yourself with what each line is doing. If your code is working well then your plot should look a bit like the following:</p>
+<p><img alt="Median differences as a function of tree depth for training and testing datasets" src="https://groklearning-cdn.com/problems/8Cet6iLGMbP2L8t7SVkEEg/overfitting.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> 5a.ipynb
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># Complete the following function</span>
+<span class="k">def</span> <span class="nf">accuracy_by_treedepth</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">depths</span><span class="p">):</span>
+  <span class="c1"># split the data into testing and training sets</span>
+
+  <span class="c1"># Initialise arrays or lists to store the accuracies for the below loop</span>
+
+  <span class="c1"># Loop through depths</span>
+  <span class="k">for</span> <span class="n">depth</span> <span class="ow">in</span> <span class="n">depths</span><span class="p">:</span>
+    <span class="c1"># initialize model with the maximum depth.</span>
+    <span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">depth</span><span class="p">)</span>
+
+    <span class="c1"># train the model using the training set</span>
+
+    <span class="c1"># Get the predictions for the training set and calculate their med_diff</span>
+
+    <span class="c1"># Get the predictions for the testing set and calculate their med_diff</span>
+
+  <span class="c1"># Return the accuracies for the training and testing sets</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>  <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+  <span class="n">features</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+  <span class="c1"># Generate several depths to test</span>
+  <span class="n">tree_depths</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+
+  <span class="c1"># Call the function</span>
+  <span class="n">train_med_diffs</span><span class="p">,</span> <span class="n">test_med_diffs</span> <span class="o">=</span> <span class="n">accuracy_by_treedepth</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">tree_depths</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Depth with lowest median difference : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tree_depths</span><span class="p">[</span><span class="n">test_med_diffs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">test_med_diffs</span><span class="p">))]))</span>
+
+  <span class="c1"># Plot the results</span>
+  <span class="n">train_plot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tree_depths</span><span class="p">,</span> <span class="n">train_med_diffs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training set&#39;</span><span class="p">)</span>
+  <span class="n">test_plot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tree_depths</span><span class="p">,</span> <span class="n">test_med_diffs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation set&#39;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Maximum Tree Depth&quot;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Median of Differences&quot;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Click here for a solution<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Here we use indices to access the data in our features and targets, however it would have been equally valid to create 4 explicit arrays <code class="docutils literal notranslate"><span class="pre">train_features</span></code>, <code class="docutils literal notranslate"><span class="pre">test_features</span></code>, <code class="docutils literal notranslate"><span class="pre">train_targets</span></code> and <code class="docutils literal notranslate"><span class="pre">test_targets</span></code>,</p>
+<p class="sd-card-text">We construct two lists <code class="docutils literal notranslate"><span class="pre">accuracies_train</span></code> and <code class="docutils literal notranslate"><span class="pre">accuracies_test</span></code> to which we can append the <em>med_diff</em> values for each depth in the for loop.</p>
+<p class="sd-card-text">The decision tree is instantiated upon each iteration of the loop with a new <code class="docutils literal notranslate"><span class="pre">max_depth</span></code> which is taken from the argument in the <em>for</em> loop. We also set the <code class="docutils literal notranslate"><span class="pre">random_seed=0</span></code>. This relates to the pseudo random numbers used to generate the tree and by setting it equal to 0 we are ensuring that all depths are tested in a consistent manner. This is not a requirement of your solution, but it is certainly recommended.</p>
+<p class="sd-card-text">We then train the tree and get predictions for the training and testing features. As previously mentioned, it is generally bad to use the same training data to assess the accuracy of the model, however as mentioned in the problems context we are using it for comparison.</p>
+<p class="sd-card-text">Finally we use the predictions for each set to calculate the <em>med_diff</em> (using our previously written function) and append it to our <code class="docutils literal notranslate"><span class="pre">accuracies_*</span></code> from earlier.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># Complete the following function</span>
+<span class="k">def</span> <span class="nf">accuracy_by_treedepth</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">depths</span><span class="p">):</span>
+  <span class="c1"># split the data into testing and training sets</span>
+  <span class="n">split</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span>
+  <span class="n">train_features</span><span class="p">,</span> <span class="n">test_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[:</span><span class="n">split</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
+  <span class="n">train_targets</span><span class="p">,</span> <span class="n">test_targets</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[:</span><span class="n">split</span><span class="p">],</span> <span class="n">targets</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
+
+  <span class="c1"># Initialise arrays or lists to store the accuracies for the below loop</span>
+  <span class="n">train_diffs</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">test_diffs</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="c1"># Loop through depths</span>
+  <span class="k">for</span> <span class="n">depth</span> <span class="ow">in</span> <span class="n">depths</span><span class="p">:</span>
+    <span class="c1"># initialize model with the maximum depth. </span>
+    <span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">depth</span><span class="p">)</span>
+
+    <span class="c1"># train the model using the training set</span>
+    <span class="n">dtr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">)</span>
+
+    <span class="c1"># Get the predictions for the training set and calculate their med_diff</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">dtr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train_features</span><span class="p">)</span>
+    <span class="n">train_diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">median_diff</span><span class="p">(</span><span class="n">train_targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
+
+    <span class="c1"># Get the predictions for the testing set and calculate their med_diff</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">dtr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_features</span><span class="p">)</span>
+    <span class="n">test_diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">median_diff</span><span class="p">(</span><span class="n">test_targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
+
+  <span class="c1"># Return the accuracies for the training and testing sets</span>
+  <span class="k">return</span> <span class="n">train_diffs</span><span class="p">,</span> <span class="n">test_diffs</span>
+</pre></div>
+</div>
+</div>
+</details><section id="discussion-of-results">
+<h2>Discussion of results<a class="headerlink" href="#discussion-of-results" title="Permalink to this headline">#</a></h2>
+<p>We can see that the accuracy of the decision tree on the <em>training set</em> gets better as we allow the tree to grow to greater depths. In fact, at a depth of 27 our errors goes to zero!</p>
+<p>Conversly, the accuracy measure of the predictions for the test set gets better initially and then worse at larger tree depths. At a tree depth ~19 the decision tree starts to overfit the data. This means it tries to take into account outliers in the training set and loses its general predictive accuracy.</p>
+<p>Overfitting is a common problem with decision trees and can be circumvented by adjusting parameters like the tree depth or setting a minimum number of cases at each node. For now, we will set a maximum tree depth of 19 to prevent over-fitting in our redshift problem.</p>
+</section>
+</section>
+<section id="cross-validation">
+<h1>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">#</a></h1>
+<p>The method we used to validate our model so far is known as hold-out validation.
+Hold out validation splits the data in two, one set to test with and the other to train with.
+Hold out validation is the most basic form of validation.</p>
+<p>While hold-out validation is better than no validation, the measured accuracy (i.e. our median of differences) will vary depending on how we split the data into testing and training subsets.
+The <em>med_diff</em> that we get from one randomly sampled training set will vary to that of a different random training set of the same size.</p>
+<p>In order to be more certain of our models accuracy we should use <span class="math notranslate nohighlight">\(k\)</span>-fold cross validation.
+<span class="math notranslate nohighlight">\(k\)</span>-fold validation works in a similar way to hold-out except that we split the data into <span class="math notranslate nohighlight">\(k\)</span> subsets.
+We train and test the model <span class="math notranslate nohighlight">\(k\)</span> times, recording the accuracy each time.
+Each time we use a different combination of <span class="math notranslate nohighlight">\(k-1\)</span> subsets to train the model and the final <span class="math notranslate nohighlight">\(k^\text{th}\)</span> subset to test.
+We take the average of the <span class="math notranslate nohighlight">\(k\)</span> accuracy measurements to be the overall accuracy of the the model.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">KFold</span></code> library is designed to split the data into training and testing subsets. It does this by offering an iterable object that can be initialised with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">n_splits=k</span></code> specifies the number of subsets to use.</p>
+<p>By default <code class="docutils literal notranslate"><span class="pre">shuffle</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+It is generally good practice to shuffle the data for cross validation as sometimes during collection and storage, data of a similar type can be stored adjacently which would lead to some learning bias when training the tree.
+For example, if the data was sorted by redshift, on the first iteration the model might be trained with redshifts 0 to 3 and tested on galaxies with redshifts ~4.</p>
+<p>In the next couple of problems we will use the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> library <code class="docutils literal notranslate"><span class="pre">KFold</span></code> to help us split our data into our <span class="math notranslate nohighlight">\(k-1\)</span> training subsets and remaining test subset.
+In the first problem we will use the convenience of <code class="docutils literal notranslate"><span class="pre">KFolds</span></code> to help us calculate the <span class="math notranslate nohighlight">\(k\)</span>-fold cross validated accuracy of our model. In the second we will extend this to provide a <span class="math notranslate nohighlight">\(k\)</span>-folded cross validated prediction for every galaxy in our data set.</p>
+</section>
+<section id="exercise-kfold-cross-validation">
+<h1>Exercise: KFold cross validation<a class="headerlink" href="#exercise-kfold-cross-validation" title="Permalink to this headline">#</a></h1>
+<p>Your task is to complete the function <code class="docutils literal notranslate"><span class="pre">cross_validate_model</span></code>.
+The function takes 4 arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>, <code class="docutils literal notranslate"><span class="pre">feaures</span></code>, and <code class="docutils literal notranslate"><span class="pre">targets</span></code> as in previous problems;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code> in our <span class="math notranslate nohighlight">\(k\)</span>-fold.
+This is the number of subsets to train and test.</p></li>
+</ul>
+<p>Your function should return a list containing the <code class="docutils literal notranslate"><span class="pre">k</span></code> median of differences for each of the <code class="docutils literal notranslate"><span class="pre">k</span></code> folds using <code class="docutils literal notranslate"><span class="pre">median_diff</span></code>.</p>
+<p>Note that we have set the <code class="docutils literal notranslate"><span class="pre">max_depth=19</span></code> when we initialise the decision tree to prevent the model from overfitting.</p>
+<p><strong>KFolds usage</strong></p>
+<p>We have created the KFold object to give you a set of training and testing indices for each of the <code class="docutils literal notranslate"><span class="pre">k</span></code> runs.
+It is worth taking a moment to understand this.</p>
+<p>Specifically, the object is initialised with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">n_splits=k</span></code> passes our desired number of subsets/folds.
+We want to shuffle the data (as previously explained).
+The iterator is then used with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">train_indices</span><span class="p">,</span> <span class="n">test_indices</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">kf.split(features)</span></code> is an iterator that, for each of the <code class="docutils literal notranslate"><span class="pre">k</span></code> iterations, returns two arrays of indices to be used with our feature and target arrays, i.e. <code class="docutils literal notranslate"><span class="pre">features[train_indices],targets[train_indices]</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># complete this function</span>
+<span class="k">def</span> <span class="nf">cross_validate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+  <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># initialise a list to collect median_diffs for each iteration of the loop below</span>
+
+  <span class="k">for</span> <span class="n">train_indices</span><span class="p">,</span> <span class="n">test_indices</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+    <span class="n">train_features</span><span class="p">,</span> <span class="n">test_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">train_indices</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span>
+    <span class="n">train_targets</span><span class="p">,</span> <span class="n">test_targets</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[</span><span class="n">train_indices</span><span class="p">],</span> <span class="n">targets</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span>
+
+    <span class="c1"># fit the model for the current set</span>
+
+    <span class="c1"># predict using the model</span>
+
+    <span class="c1"># calculate the median_diff from predicted values and append to results array</span>
+
+
+  <span class="c1"># return the list with your median difference values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># complete this function</span>
+<span class="k">def</span> <span class="nf">cross_validate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+  <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># initialise a list to collect median_diffs for each iteration of the loop below</span>
+  <span class="n">diffs</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="k">for</span> <span class="n">train_indices</span><span class="p">,</span> <span class="n">test_indices</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+    <span class="n">train_features</span><span class="p">,</span> <span class="n">test_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">train_indices</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span>
+    <span class="n">train_targets</span><span class="p">,</span> <span class="n">test_targets</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[</span><span class="n">train_indices</span><span class="p">],</span> <span class="n">targets</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span>
+
+    <span class="c1"># fit the model for the current set</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">)</span>
+
+    <span class="c1"># predict using the model</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_features</span><span class="p">)</span>
+
+    <span class="c1"># calculate the median_diff from predicted values and append to results array</span>
+    <span class="n">diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">median_diff</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">))</span>
+
+  <span class="c1"># return the list with your median difference values</span>
+  <span class="k">return</span> <span class="n">diffs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Click here for explanation<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This is quite similar to our earlier implementation for validation in the last tutorial.
+The main differences are that we are using the <code class="docutils literal notranslate"><span class="pre">train_indices</span></code> and <code class="docutils literal notranslate"><span class="pre">test_indices</span></code> to split our features and target arrays.</p>
+<p class="sd-card-text">Another difference is that we are collecting our calculated med_diff values in a list to be returned at the end of the function.</p>
+</div>
+</details><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+<span class="n">features</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># initialize model with a maximum depth of 19</span>
+<span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+
+<span class="c1"># call your cross validation function</span>
+<span class="n">diffs</span> <span class="o">=</span> <span class="n">cross_validate_model</span><span class="p">(</span><span class="n">dtr</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Print the values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Differences: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">diffs</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean difference: </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">diffs</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cross-validation-of-predictions">
+<h1>Cross validation of predictions<a class="headerlink" href="#cross-validation-of-predictions" title="Permalink to this headline">#</a></h1>
+<p>Cross validation is an important part of ensuring that our model is returning values that are at least partially accurate.
+The problem with held-out validation is that the we are only able to get prediction values for the data in our test set.</p>
+<p>With <span class="math notranslate nohighlight">\(k\)</span>-fold cross validation each galaxy is tested at least once and because of this we are able to get a prediction value for every galaxy.
+We’ll do this in the next question.</p>
+</section>
+<section id="exercise-kfold-cross-validated-predictions">
+<h1>Exercise: KFold Cross Validated Predictions<a class="headerlink" href="#exercise-kfold-cross-validated-predictions" title="Permalink to this headline">#</a></h1>
+<p>Complete the function <code class="docutils literal notranslate"><span class="pre">cross_validate_predictions</span></code>.
+This is very similar to the previous question except instead of returning the <code class="docutils literal notranslate"><span class="pre">med_diff</span></code> accuracy measurements we would like to return a predicted value for each of the galaxies.</p>
+<p>The function takes the same 4 arguments as the previous question, i.e. <code class="docutils literal notranslate"><span class="pre">model</span></code>, <code class="docutils literal notranslate"><span class="pre">feaures</span></code>, <code class="docutils literal notranslate"><span class="pre">targets</span></code> and <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p>
+<p>Your function should return a single variable.
+The returned variable should be a 1-D numpy array of length
+<span class="math notranslate nohighlight">\(m\)</span>, where <span class="math notranslate nohighlight">\(m\)</span> is the number of galaxies in our data set.
+You should make sure that you maintain the order of galaxies when giving your predictions, such that the first prediction in your array corresponds to the first galaxy in the <code class="docutils literal notranslate"><span class="pre">features</span></code> and <code class="docutils literal notranslate"><span class="pre">targets</span></code> arrays.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># complete this function</span>
+<span class="k">def</span> <span class="nf">cross_validate_predictions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+  <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># declare an array for predicted redshifts from each iteration</span>
+  <span class="n">all_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="n">train_indices</span><span class="p">,</span> <span class="n">test_indices</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+    <span class="c1"># split the data into training and testing</span>
+
+    <span class="c1"># fit the model for the current set</span>
+
+    <span class="c1"># predict using the model</span>
+
+    <span class="c1"># put the predicted values in the all_predictions array defined above</span>
+    <span class="n">all_predictions</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">predictions</span>
+
+  <span class="c1"># return the predictions</span>
+  <span class="k">return</span> <span class="n">all_predictions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># complete this function</span>
+<span class="k">def</span> <span class="nf">cross_validate_predictions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+  <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># declare an array for predicted redshifts from each iteration</span>
+  <span class="n">all_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="n">train_indices</span><span class="p">,</span> <span class="n">test_indices</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+    <span class="c1"># split the data into training and testing</span>
+    <span class="n">train_features</span><span class="p">,</span> <span class="n">test_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">train_indices</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span>
+    <span class="n">train_targets</span><span class="p">,</span> <span class="n">test_targets</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[</span><span class="n">train_indices</span><span class="p">],</span> <span class="n">targets</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span>
+
+    <span class="c1"># fit the model for the current set</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">)</span>
+
+    <span class="c1"># predict using the model</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_features</span><span class="p">)</span>
+
+    <span class="c1"># put the predicted values in the all_predictions array defined above</span>
+    <span class="n">all_predictions</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">predictions</span>
+
+  <span class="c1"># return the predictions</span>
+  <span class="k">return</span> <span class="n">all_predictions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Click here for explanation<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This is very similar to the previous problem.
+Here instead of using the predicted values for calculating the accuracy we simply put them into an array which the function returns.
+We initialise an array to store the predictions from each validation with…</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">all_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p class="sd-card-text">We then use the test_indices to keep the correct order when populating the array.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">all_predictions</span><span class="p">[</span><span class="n">test_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">predicted</span>
+</pre></div>
+</div>
+<p class="sd-card-text">This ensures that we can compare the predictions their corresponding target values later when calculating the median difference and plotting the predicted values against actual values.</p>
+</div>
+</details><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+<span class="n">features</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># initialize model</span>
+<span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+
+<span class="c1"># call your cross validation function</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">cross_validate_predictions</span><span class="p">(</span><span class="n">dtr</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># calculate and print the rmsd as a sanity check</span>
+<span class="n">diffs</span> <span class="o">=</span> <span class="n">median_diff</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Median difference: </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">diffs</span><span class="p">))</span>
+
+<span class="c1"># plot the results to see how well our model looks</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">predictions</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Measured Redshift&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Redshift&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/notebooks/5b.ipynb Cell 19</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="o">----&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/notebooks/5b.ipynb#ch0000020?line=0&#39;</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/notebooks/5b.ipynb#ch0000020?line=1&#39;</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/notebooks/5b.ipynb#ch0000020?line=3&#39;</span><span class="o">&gt;</span><span class="mi">4</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="c1"># initialize model</span>
+
+<span class="nn">File ~/opt/anaconda3/lib/python3.8/site-packages/numpy/lib/npyio.py:407,</span> in <span class="ni">load</span><span class="nt">(file, mmap_mode, allow_pickle, fix_imports, encoding)</span>
+<span class="g g-Whitespace">    </span><span class="mi">405</span>     <span class="n">own_fid</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">406</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">407</span>     <span class="n">fid</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os_fspath</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">408</span>     <span class="n">own_fid</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">410</span> <span class="c1"># Code to distinguish from NumPy binary files and pickles.</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;data/sdss_galaxy_colors.npy&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="k-fold-discussion">
+<h1>K-Fold discussion<a class="headerlink" href="#k-fold-discussion" title="Permalink to this headline">#</a></h1>
+<p>K-Fold cross validation is an important part of assessing the accuracy of any machine learning model.
+When we plotted our predicted vs measured redshifts we are able to see that for many our galaxies we were able to get a reasonably accurate prediction of redshift.
+However, there are also several outliers where our model does not give a good prediction.</p>
+<p><img alt="Scatter plot of predicted vs. measured redshift" src="https://groklearning-cdn.com/modules/SjroKib6Hs5Fqxq53Vxme9/predicted_v_measured.png" /></p>
+<p>We have learnt the inner workings of <span class="math notranslate nohighlight">\(k\)</span>-Fold cross validation with the help of the <code class="docutils literal notranslate"><span class="pre">KFold</span></code> library.
+Now that you have a working understanding of <span class="math notranslate nohighlight">\(k\)</span>-Fold you should be aware that there are several methods and libraries in the <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code> modules that provide off the shelf versions of some of the routines that we have just written.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cross_val_predict</span></code> function performs the same actions as the <code class="docutils literal notranslate"><span class="pre">cross_validate_predictions</span></code> function you wrote in the previous question.
+It can be called with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">dtr</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">dtr</span></code> is our decision tree regressor object, <code class="docutils literal notranslate"><span class="pre">cv=k</span></code> allows us to specify the number of folds(k) to use and <code class="docutils literal notranslate"><span class="pre">features</span></code>/<code class="docutils literal notranslate"><span class="pre">targets</span></code> are as we have used them so far.</p>
+<p>There is one other tool in the <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code> library that is worth noting, the <code class="docutils literal notranslate"><span class="pre">cross_val_score</span></code> function.
+This provides a score of how well the model performed similar to the <code class="docutils literal notranslate"><span class="pre">med_diff</span></code> we have been using so far.
+We will not go into the usage here, but you need to specify which metric is used to score the model.</p>
+</section>
+<section id="qso-vs-galaxies">
+<h1>QSO vs Galaxies<a class="headerlink" href="#qso-vs-galaxies" title="Permalink to this headline">#</a></h1>
+<p>You might be surprised to learn that our sample of galaxies consists of two different populations: regular galaxies and quasi-stellar objects (QSOs).
+QSOs are a type of galaxy that contain an actively (and intensely) accreting supermassive black hole.
+This is often referred to as an Active Galactic Nucleus (AGN).</p>
+<p><img alt="AGN" src="https://groklearning-cdn.com/modules/B9yuTkmwbvVYh65FcYjb2f/agn.png" /></p>
+<p>The light emitted from the AGN is significantly brighter than the rest of the galaxy and we are able to detect these QSOs out to much higher redshifts.
+In fact, most of the normal galaxies we have been using to create our models have redshifts less than <span class="math notranslate nohighlight">\(z \approx 0.4\)</span>, while the QSOs have redshifts all the way out to <span class="math notranslate nohighlight">\(z \approx 6\)</span>.
+Due to this contribution from the AGN, the flux magnitudes measured at different wavelengths might not follow the typical profile we assumed when predicting redshifts.</p>
+<p>In the next question we are going look at whether there is a difference in the accuracy of the decision trees between QSOs and regular galaxies.</p>
+</section>
+<section id="exercise-qso-and-galaxy">
+<h1>Exercise: QSO and Galaxy<a class="headerlink" href="#exercise-qso-and-galaxy" title="Permalink to this headline">#</a></h1>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">split_galaxies_qsos</span></code> that splits our data containing both galaxies and QSOs into two arrays that contain only galaxies and QSOs respectively.
+Your function should take a single <code class="docutils literal notranslate"><span class="pre">data</span></code> argument.</p>
+<p>The function should return two NumPy arrays, the first <code class="docutils literal notranslate"><span class="pre">galaxies</span></code> containing only rows from <code class="docutils literal notranslate"><span class="pre">data</span></code> that are galaxies and the second <code class="docutils literal notranslate"><span class="pre">qsos</span></code> containing only rows that are QSOs.</p>
+<p>The data array contains a column <code class="docutils literal notranslate"><span class="pre">data['spec_class']</span></code> where the values will either be <code class="docutils literal notranslate"><span class="pre">b'GALAXY'</span></code> or <code class="docutils literal notranslate"><span class="pre">b'QSO'</span></code>.</p>
+<div class="admonition-gotcha-use-b-galaxy-and-not-galaxy admonition">
+<p class="admonition-title">Gotcha: use b’GALAXY’ and not ‘GALAXY’</p>
+<p>The spectral class is stored as a byte string (not Unicode strings), so the literals must have a b out the front. Comparing against ‘GALAXY’ will not match any rows, whereas b’GALAXY’ will.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Hint: use masking to select the rows</p>
+<p>We can use masking to select particular rows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+<span class="n">galaxies</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;spec_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;GALAXY&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The inner <code class="docutils literal notranslate"><span class="pre">data['spec_class']</span> <span class="pre">==</span> <span class="pre">b'GALAXY'</span></code> returns all of the indices that have a galaxy spectral type. These indices are then used to select the rows with the outer <code class="docutils literal notranslate"><span class="pre">data[...]</span></code>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># complete this function</span>
+<span class="k">def</span> <span class="nf">split_galaxies_qsos</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+  <span class="k">pass</span>
+  <span class="c1"># split the data into galaxies and qsos arrays</span>
+
+  <span class="c1"># return the seperated galaxies and qsos arrays</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># Solution</span>
+<span class="k">def</span> <span class="nf">split_galaxies_qsos</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+  <span class="c1"># split the data into galaxies and qsos arrays</span>
+  <span class="n">galaxies</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;spec_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;GALAXY&#39;</span><span class="p">]</span>
+  <span class="n">qsos</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;spec_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;QSO&#39;</span><span class="p">]</span>
+
+  <span class="c1"># return the seperated galaxies and qsos arrays</span>
+  <span class="k">return</span> <span class="n">galaxies</span><span class="p">,</span> <span class="n">qsos</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Click here for explanation<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">This solution uses masking.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qso_mask</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;spec_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;QSO&#39;</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Creates an array of boolean values <code class="docutils literal notranslate"><span class="pre">True</span></code> if the <code class="docutils literal notranslate"><span class="pre">data['spec_class']</span> <span class="pre">==</span> <span class="pre">b'QSO'</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<p class="sd-card-text">We do the same for the galaxies and then create our two return arrays using the masks.</p>
+</div>
+</details><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cross_validate_median_diff</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+  <span class="n">features</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+  <span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cross_validate_model</span><span class="p">(</span><span class="n">dtr</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+
+<span class="c1"># Split the data set into galaxies and QSOs</span>
+<span class="n">galaxies</span><span class="p">,</span> <span class="n">qsos</span><span class="o">=</span> <span class="n">split_galaxies_qsos</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Here we cross validate the model and get the cross-validated median difference</span>
+<span class="c1"># The cross_validated_med_diff function is in &quot;written_functions&quot;</span>
+<span class="n">galaxy_med_diff</span> <span class="o">=</span> <span class="n">cross_validate_median_diff</span><span class="p">(</span><span class="n">galaxies</span><span class="p">)</span>
+<span class="n">qso_med_diff</span> <span class="o">=</span> <span class="n">cross_validate_median_diff</span><span class="p">(</span><span class="n">qsos</span><span class="p">)</span>
+
+<span class="c1"># Print the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Median difference for Galaxies: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">galaxy_med_diff</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Median difference for QSOs: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">qso_med_diff</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="qso-discussion">
+<h1>QSO discussion<a class="headerlink" href="#qso-discussion" title="Permalink to this headline">#</a></h1>
+<p>So our QSOs have a greater median residual <span class="math notranslate nohighlight">\((\approx 0.074)\)</span> than the galaxies <span class="math notranslate nohighlight">\((\approx 0.016)\)</span>.
+There are a couple of possibilities why this is the case.</p>
+<p>There are far fewer QSOs (8525) than galaxies (41,475).
+Galaxies aren’t as bright as QSOs so they become too faint to be detected with SDSS at redshifts <span class="math notranslate nohighlight">\(\approx 0.4\)</span>.
+This creates a measurement bias.
+When I take a random sample of galaxies the same size as the QSO data set I get a <code class="docutils literal notranslate"><span class="pre">med_diff</span></code> of <span class="math notranslate nohighlight">\(\approx 0.018\)</span>, which is slightly higher than the full set, but not enough to account for the gap between the two populations.</p>
+<p>The figure below shows the normalised distribution function of the two populations.</p>
+<p><img alt="Normalized redshift distribution of QSOs and galaxies" src="https://groklearning-cdn.com/modules/g9BapNhtoxZihnccvW29Ug/redshift_distribution.png" /></p>
+<p>We can see that the majority of galaxies form a peak around <span class="math notranslate nohighlight">\(0.10\)</span> while the QSOs are resonably evenly distributed out to redshift <span class="math notranslate nohighlight">\(\approx 2.5\)</span>.
+This can lead to a measurement bias.
+In the case of the galaxies we have trained our decision tree with target redshifts approximately less than <span class="math notranslate nohighlight">\(0.4\)</span>.
+As such the predictions from this model will not be larger than the maximum target value.
+So the maximum difference (or residual) for each galaxy in this set will be a lot smaller than the maximum residual for the QSOs.</p>
+<p>We can often get a clearer view of this by looking at the predicted redshifts vs actual redshifts in a plot.</p>
+<p><img alt="Scatter plot of predicted vs. measured redshift, colored by QSOs and galaxies" src="https://groklearning-cdn.com/modules/ovFSymwFkqBPAcjnbSUxLG/predicted_actual_qso.png" /></p>
+</section>
+<section id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h1>
+<p>We have looked at how decision trees are prone to overfitting the model and how limiting the maximum depth of the tree can be used to prevent this. By comparing the accuracy of the model on the training set with that of the test set for different tree depths we found that a maximum tree depth of 19 was suitable for our model.</p>
+<p>We looked at <span class="math notranslate nohighlight">\(k\)</span>-fold cross validation and the various methods that can be used to implement it.
+<span class="math notranslate nohighlight">\(k\)</span>-fold cross validation mitigates the risk that the training set has a unique or specific population of the data set; For example if all the training data contained QSOs and the testing set regular galaxies.
+<span class="math notranslate nohighlight">\(k\)</span>-folds cross validation also allows you to get a prediction for all the points in your data set.</p>
+<p>We concluded by looking at the sub-population of QSOs and how their accuracy measurement was significantly worse than that of the other galaxies. On closer inspection we found that this was a measurement bias resulting from the difference in the range of redshifts in each population.</p>
+<p>You have hopefully learnt all the tools necessary to implement a decision tree on a regression problem of your own. In the next module we will look at how decision trees can be used for classification. We will be using them to classify galaxies as either an elliptical, a spiral or a merger.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "arunkannawadi/data-driven-astronomy",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "data-driven-astronomy"
+        },
+        kernelOptions: {
+            kernelName: "data-driven-astronomy",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'data-driven-astronomy'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="5a.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Photometric redshifts - Introduction</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Tara Murphy, Dr. Simon Murphy<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

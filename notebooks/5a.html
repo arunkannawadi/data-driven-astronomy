@@ -1,0 +1,1173 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Photometric redshifts - Introduction &#8212; Data-driven Astronomy</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Improving and evaluating our classifier" href="5b.html" />
+    <link rel="prev" title="What is a database?" href="week3/3a.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.jpeg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data-driven Astronomy</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../week2/2_crossmatching.html">
+   Week 2: Cross-matching
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="week2/2a.html">
+     Right ascension and Declination
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../week2/2b.html">
+     Angular distance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="week2/2c.html">
+     Implementing angular distance calculator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="week2/2d.html">
+     Cross-matching catalogues
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week3/3.html">
+   Writing your own SQL queries
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="week3/3a.html">
+     What is a database?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   Photometric redshifts - Introduction
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5b.html">
+     Improving and evaluating our classifier
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/arunkannawadi/data-driven-astronomy/main?urlpath=lab/tree/data_driven_astronomy/notebooks/5a.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/arunkannawadi/data-driven-astronomy/blob/main/data_driven_astronomy/notebooks/5a.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy/issues/new?title=Issue%20on%20page%20%2Fnotebooks/5a.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arunkannawadi/data-driven-astronomy/edit/main/data_driven_astronomy/notebooks/5a.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/5a.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#magnitudes-and-colours">
+   Magnitudes and colours
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-data-do-we-need">
+   What data do we need?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#decision-tree-algorithms">
+   Decision tree algorithms
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decision-tree-for-regression">
+     Decision tree for regression
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decision-trees-in-python">
+     Decision trees in Python
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sloan-digital-sky-survey-data">
+     Sloan Digital Sky Survey data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-features-and-targets">
+     Exercise: Features and targets
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-decision-tree-regressor">
+   Exercise: Decision tree regressor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluating-our-results-accuracy">
+   Evaluating our results: accuracy
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-calculating-the-median-difference">
+     Exercise: Calculating the median difference
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluating-our-results-validation">
+   Evaluating our results: Validation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-validating-our-model">
+     Exercise: Validating our model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exploring-the-output-tree">
+   Exploring the output tree
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-effect-of-training-set-size">
+     The effect of training set size
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#before-machine-learning">
+     Before machine learning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-colour-colour-redshift-plot">
+     Exercise: Colour Colour Redshift plot
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Photometric redshifts - Introduction</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#magnitudes-and-colours">
+   Magnitudes and colours
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-data-do-we-need">
+   What data do we need?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#decision-tree-algorithms">
+   Decision tree algorithms
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decision-tree-for-regression">
+     Decision tree for regression
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decision-trees-in-python">
+     Decision trees in Python
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sloan-digital-sky-survey-data">
+     Sloan Digital Sky Survey data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-features-and-targets">
+     Exercise: Features and targets
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-decision-tree-regressor">
+   Exercise: Decision tree regressor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluating-our-results-accuracy">
+   Evaluating our results: accuracy
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-calculating-the-median-difference">
+     Exercise: Calculating the median difference
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluating-our-results-validation">
+   Evaluating our results: Validation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-validating-our-model">
+     Exercise: Validating our model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exploring-the-output-tree">
+   Exploring the output tree
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-effect-of-training-set-size">
+     The effect of training set size
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#before-machine-learning">
+     Before machine learning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-colour-colour-redshift-plot">
+     Exercise: Colour Colour Redshift plot
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="photometric-redshifts-introduction">
+<h1>Photometric redshifts - Introduction<a class="headerlink" href="#photometric-redshifts-introduction" title="Permalink to this headline">#</a></h1>
+<p>In this activity, we’re going to use decision trees to determine the redshifts of galaxies from their photometric colours.
+We’ll use galaxies where accurate spectroscopic redshifts have been calculated as our gold standard.
+We will learn how to assess the accuracy of the decision trees predictions and have a look at validation of our model.</p>
+<p>We will also have a quick look at how this problem might be approached without using machine learning.
+This will highlight some of the limitations of the classical approach and demonstrate why a machine learning approach is ideal for this type of problem.</p>
+<p>This activity is based on the scikit-learn example on <a class="reference external" href="http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/tutorial/astronomy/regression.html">Photometric Redshifts of Galaxies</a>.</p>
+<section id="magnitudes-and-colours">
+<h2>Magnitudes and colours<a class="headerlink" href="#magnitudes-and-colours" title="Permalink to this headline">#</a></h2>
+<p>We will be using flux magnitudes from the Sloan Digital Sky Survey (SDSS) catalogue to create colour indices.
+Flux magnitudes are the total flux (or light) received in five frequency bands (<em>u</em>, <em>g</em>, <em>r</em>, <em>i</em> and <em>z</em>).</p>
+<p><img alt="SDSS filter response" src="https://groklearning-cdn.com/modules/TYPnbyWbJVHGcaNudF4Nak/plot_sdss_filters_11.png" /></p>
+<p>Colours correspond to the wavelengths of the light we observe. Longer wavelengths appear red and shorter wavelengths appear blue or violet. Similarly, the astronomical colour (or colour index) is the difference between the magnitudes of two filters, i.e. <em>u - g</em> or <em>i - z</em>. You can read more about the filters and how the cameras work at <a class="reference external" href="http://voyages.sdss.org/preflight/light/filters/">http://voyages.sdss.org/preflight/light/filters/</a>, <a class="reference external" href="https://www.sdss.org/instruments/camera/">https://www.sdss.org/instruments/camera/</a>, and <a class="reference external" href="http://voyages.sdss.org/">http://voyages.sdss.org/</a>.</p>
+<p>This index is one way to characterise the colours of galaxies. For example, if the <em>u - g</em> index is high then the object is brighter in ultra violet frequencies than it is in visible green frequencies.</p>
+<p>Colour indices act as an approximation for the spectrum of the object and are useful for classifying stars into different types.</p>
+</section>
+<section id="what-data-do-we-need">
+<h2>What data do we need?<a class="headerlink" href="#what-data-do-we-need" title="Permalink to this headline">#</a></h2>
+<p>To calculate the redshift of a distant galaxy, the most accurate method is to observe the optical emission lines and measure the shift in wavelength.
+However, this process can be time consuming and is thus infeasible for large samples.</p>
+<p>For many galaxies we simply don’t have spectroscopic observations.</p>
+<p>Instead, we can calculate the redshift by measuring the flux using a number of different filters and comparing this to models of what we expect galaxies to look like at different redshifts.</p>
+<p>In this activity, we will use machine learning to obtain photometric redshifts for a large sample of galaxies.
+We will use the colour indices (<em>u - g</em>, <em>g - r</em>, <em>r - i</em> and <em>i - z</em>) as our input and a subset of sources with spectroscopic redshifts as the training dataset.</p>
+</section>
+<section id="decision-tree-algorithms">
+<h2>Decision tree algorithms<a class="headerlink" href="#decision-tree-algorithms" title="Permalink to this headline">#</a></h2>
+<p>Decision trees are a tool that can be used for both classification and regression.
+In this module we will look at regression, however, in the next module we will see how they can be used as classifiers.</p>
+<p>Decision trees map a set of input features to their corresponding output targets.
+This is done through a series of individual decisions where each decision represents a node (or branching) of the tree.</p>
+<p>The following figure shows the decision tree our proverbial robot tennis player Robi used in the lectures to try and decide whether to play tennis on a particular day.</p>
+<p><img alt="A simple decision tree on whether or not to play tennis" src="https://groklearning-cdn.com/modules/oqviMCYkoRqeu76VKnwRsn/tennis.png" /></p>
+<p>Each node represents a decision that the robot needs to make (or assess) to reach a final decision.
+In this example, the decision tree will be passed a set of input features (Outlook, Humidity and Wind) and will return an output of whether to play or not.</p>
+<section id="decision-tree-for-regression">
+<h3>Decision tree for regression<a class="headerlink" href="#decision-tree-for-regression" title="Permalink to this headline">#</a></h3>
+<p>In decision trees for real-world tasks, each decision is typically more complex, involving measured values, not just categories.</p>
+<p>Instead of the input values for humidity being <code class="docutils literal notranslate"><span class="pre">Normal</span></code> or <code class="docutils literal notranslate"><span class="pre">High</span></code> and wind being <code class="docutils literal notranslate"><span class="pre">Strong</span></code> or <code class="docutils literal notranslate"><span class="pre">Weak</span></code> we might see a percentage between 0 and 100 for humidity and a wind speed in km/hr for wind.
+Our decisions might then be humidity &lt; 40% or wind &lt; 5 km/hr.</p>
+<p>The output of regression is a real number.
+So, instead of the two outputs of <code class="docutils literal notranslate"><span class="pre">Play</span></code> and <code class="docutils literal notranslate"><span class="pre">Don't</span> <span class="pre">Play</span></code> we have a probability of whether we will play that day.</p>
+<p>The decision at each branch is determined from the training data by the decision tree learning algorithm.
+Each algorithm employs a different metric (e.g. Gini impurity or information gain) to find the decision that splits the data most effectively.</p>
+<p>For now, just need to know that a decision tree is a series of decisions, each made on a single feature of the data.
+The end point of all the branches is a set of desired target values.</p>
+</section>
+<section id="decision-trees-in-python">
+<h3>Decision trees in Python<a class="headerlink" href="#decision-trees-in-python" title="Permalink to this headline">#</a></h3>
+<p>The inputs to our decision tree are the colour indices from photometric imaging and our output is a photometric redshift.
+Our training data uses accurate spectroscopic measurements.</p>
+<p>The decision tree will look something like the following.</p>
+<p><img alt="A decision tree for regression" src="https://groklearning-cdn.com/modules/5PUcnT5fqRn5wTUXw7kg2B/decisiontree_1.png" /></p>
+<p>We can see how our calculated colour indices are input as features at the top and through a series of decision nodes a target redshift value is reached and output.</p>
+<p>We will be using the Python machine learning library <a class="reference external" href="http://scikit-learn.org/stable">scikit-learn</a> which provides several machine learning algorithms.</p>
+<p>The <a class="reference external" href="http://scikit-learn.org/stable/auto_examples/tree/plot_tree_regression.html">scikit-learn decision tree regression</a> takes a set of input features and the corresponding target values, and constructs a decision tree model that can be applied to new data.</p>
+</section>
+<section id="sloan-digital-sky-survey-data">
+<h3>Sloan Digital Sky Survey data<a class="headerlink" href="#sloan-digital-sky-survey-data" title="Permalink to this headline">#</a></h3>
+<p>We have provided the Sloan data in NumPy binary format (<strong>.npy</strong>) in a file called <strong>sdss_galaxy_colors.npy</strong>.
+The Sloan data is stored in a <a class="reference external" href="https://docs.scipy.org/doc/numpy/user/basics.rec.html">NumPy structured array</a> and looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">u</span>	<span class="n">g</span>	<span class="n">r</span>	<span class="n">i</span>	<span class="n">z</span>	<span class="o">...</span>	<span class="n">redshift</span>
+<span class="mf">19.84</span>	<span class="mf">19.53</span>	<span class="mf">19.47</span>	<span class="mf">19.18</span>	<span class="mf">19.11</span>	<span class="o">...</span>	<span class="mf">0.54</span>
+<span class="mf">19.86</span>	<span class="mf">18.66</span>	<span class="mf">17.84</span>	<span class="mf">17.39</span>	<span class="mf">17.14</span>	<span class="o">...</span>	<span class="mf">0.16</span>
+<span class="o">...</span>	<span class="o">...</span>	<span class="o">...</span>	<span class="o">...</span>	<span class="o">...</span>	<span class="o">...</span>	<span class="o">...</span>
+<span class="mf">18.00</span>	<span class="mf">17.81</span>	<span class="mf">17.77</span>	<span class="mf">17.73</span>	<span class="mf">17.73</span>	<span class="o">...</span>	<span class="mf">0.47</span>
+</pre></div>
+</div>
+<p>It also include <strong>spec_class</strong> and <strong>redshift_err</strong> columns we don’t need in this activity.
+The data can be loaded using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">data[0]</span></code> corresponds to the first row of the table above.
+Individual named columns can be accessed like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Each flux magnitude column can be accessed in the data array as <code class="docutils literal notranslate"><span class="pre">data['u']</span></code>, <code class="docutils literal notranslate"><span class="pre">data['g']</span></code> etc.
+The redshifts can accessed with <code class="docutils literal notranslate"><span class="pre">data['redshift']</span></code>.</p>
+</section>
+<section id="exercise-features-and-targets">
+<h3>Exercise: Features and targets<a class="headerlink" href="#exercise-features-and-targets" title="Permalink to this headline">#</a></h3>
+<p>Write a <code class="docutils literal notranslate"><span class="pre">get_features_targets</span></code> function that splits the training data into input features and their corresponding targets.
+In our case, the inputs are the 4 colour indices and our targets are the corresponding redshifts.</p>
+<p>Your function should return a tuple of:</p>
+<ul class="simple">
+<li><p><strong>features</strong>: a NumPy array of dimensions <em>m</em> ⨉ 4, where <em>m</em> is the number of galaxies;</p></li>
+<li><p><strong>targets</strong>: a 1D NumPy array of length <em>m</em>, containing the redshift for each galaxy.</p></li>
+</ul>
+<p>The data argument will be the structured array described on the previous slide.
+The <em>u</em> flux magnitudes and redshifts can be accessed as a column with <code class="docutils literal notranslate"><span class="pre">data['u']</span></code> and <code class="docutils literal notranslate"><span class="pre">data['redshift']</span></code>.</p>
+<p>The four features are the colours <em>u - g</em>, <em>g - r</em>, <em>r - i</em> and <em>i - z</em>.
+To calculate the first column of features, subtract the <em>u</em> and <em>g</em> columns, like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The features for the first 2 galaxies in the example data should be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span> <span class="mf">0.31476</span>  <span class="mf">0.0571</span>   <span class="mf">0.28991</span>  <span class="mf">0.07192</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">1.2002</span>   <span class="mf">0.82026</span>  <span class="mf">0.45294</span>  <span class="mf">0.24665</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>And the first 2 targets should be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mf">0.539301</span>   <span class="mf">0.1645703</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Hint: set up your <strong>features</strong> array with zeros</p>
+<p>You can set up the features array with zeros and then set each column to the corresponding calculated feature.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">features</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+  <span class="n">targets</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;redshift&#39;</span><span class="p">]</span>
+  <span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">],</span>
+                       <span class="n">data</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">],</span>
+                       <span class="n">data</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">],</span>
+                       <span class="n">data</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
+                      <span class="p">])</span>
+  <span class="k">return</span> <span class="n">features</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">targets</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+
+<span class="c1"># call our function</span>
+<span class="n">features</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># print the shape of the returned arrays</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">features</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">targets</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.31476 0.0571  0.28991 0.07192]
+ [1.2002  0.82026 0.45294 0.24665]]
+[0.539301  0.1645703]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-decision-tree-regressor">
+<h2>Exercise: Decision tree regressor<a class="headerlink" href="#exercise-decision-tree-regressor" title="Permalink to this headline">#</a></h2>
+<p>We are now going to use our features and targets to train a decision tree and then make a prediction. We are going to use the <a class="reference external" href="http://scikit-learn.org/stable/auto_examples/tree/plot_tree_regression.html">DecisionTreeRegressor</a> class from the <code class="docutils literal notranslate"><span class="pre">sklearn.tree</span></code> module.</p>
+<p>The decision tree regression learning algorithm is initialised with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We will discuss some optimisations later in the activity, but for now we are just going to use the default values.</p>
+<p>To train the model, we use the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method with the <code class="docutils literal notranslate"><span class="pre">features</span></code> and <code class="docutils literal notranslate"><span class="pre">targets</span></code> we created earlier:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dtr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The decision tree is now trained and ready to make a prediction:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">dtr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">predictions</span></code> is an array of predicted values corresponding to each of the input variables in the array.</p>
+<p>Your task is to put this together for our photometric redshift data.
+Use the comments to guide your implementation.</p>
+<p>Finally, print the first 4 predictions. It should print this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mf">0.539301</span>    <span class="mf">0.1645703</span>   <span class="mf">0.04190006</span>  <span class="mf">0.04427702</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+
+<span class="c1"># load the data and generate the features and targets</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+<span class="n">features</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># initialize model</span>
+<span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">()</span>
+
+<span class="c1"># train the model</span>
+<span class="n">dtr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+
+<span class="c1"># make predictions using the same features</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">dtr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+
+<span class="c1"># print out the first 4 predicted redshifts</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.539301   0.1645703  0.04190006 0.04427702]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="evaluating-our-results-accuracy">
+<h2>Evaluating our results: accuracy<a class="headerlink" href="#evaluating-our-results-accuracy" title="Permalink to this headline">#</a></h2>
+<p>So we trained a decision tree! Great…but how do we know if the tree is actually any good at predicting redshifts?</p>
+<p>In regression we compare the predictions generated by our model with the actual values to test how well our model is performing. The difference between the predicted values and actual values (sometimes referred to as residuals) can tell us a lot about where our model is performing well and where it is not.</p>
+<p>While there are a few different ways to characterise these differences, in this tutorial we will use the median of the differences between our predicted and actual values. This is given by:</p>
+<div class="math notranslate nohighlight">
+\[ med\_diff = median(|Y_\text{i, pred} - Y_\text{i,act}|) \]</div>
+<p>Where  <span class="math notranslate nohighlight">\(|  |\)</span> denotes the absolute value of the difference.</p>
+<section id="exercise-calculating-the-median-difference">
+<h3>Exercise: Calculating the median difference<a class="headerlink" href="#exercise-calculating-the-median-difference" title="Permalink to this headline">#</a></h3>
+<p>In this problem we will implement the function median_diff. The function should calculate the median residual error of our model, i.e. the median difference between our predicted and actual redshifts.</p>
+<p>The median_diff function takes two arguments – the predicted and actual/target values.
+When we use this function later in the tutorial, these will corresponding to the predicted redshifts from our decision tree and their corresponding measured/target values.</p>
+<p>The median of differences should be calculated according to the formula above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># write a function that calculates the median of the differences</span>
+<span class="c1"># between our predicted and actual values</span>
+<span class="k">def</span> <span class="nf">median_diff</span><span class="p">(</span><span class="n">predicted</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">predicted</span><span class="o">-</span><span class="n">actual</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load testing data</span>
+<span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/targets.npy&#39;</span><span class="p">)</span>  <span class="c1"># currently missing</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/predictions.npy&#39;</span><span class="p">)</span>  <span class="c1"># currently missing</span>
+
+<span class="c1"># call your function to measure the accuracy of the predictions</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="n">median_diff</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+
+<span class="c1"># print the median difference</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Median difference: </span><span class="si">{:0.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="evaluating-our-results-validation">
+<h2>Evaluating our results: Validation<a class="headerlink" href="#evaluating-our-results-validation" title="Permalink to this headline">#</a></h2>
+<p>We previously used the same data for training and testing our decision trees.</p>
+<p>This gives an unrealistic estimate of how accurate the model will be on previously unseen galaxies because the model has been optimised to get the best results on the training data.</p>
+<p>The simplest way to solve this problem is to split our data into* training* and <em>testing</em> subsets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span># initialise and train the decision tree
+dtr = DecisionTreeRegressor()
+dtr.fit(train_features, train_targets)
+
+# get a set of prediction from the test input features
+predictions = dtr.predict(test_features)
+​
+# compare the accuracy of the pediction againt the actual values
+print(calculate_rmsd(predictions, test_targets))
+</pre></div>
+</div>
+<p>This method of validation is the most basic approach to validation and is called held-out validation.
+We will use the <span class="math notranslate nohighlight">\(med\_diff\)</span> accuracy measure and hold-out validation in the next problem to assess the accuracy of our decision tree.</p>
+<section id="exercise-validating-our-model">
+<h3>Exercise: Validating our model<a class="headerlink" href="#exercise-validating-our-model" title="Permalink to this headline">#</a></h3>
+<p>In this problem, we will use <code class="docutils literal notranslate"><span class="pre">median_diff</span></code> from the previous question to validate the decision tree model.
+Your task is to complete the <code class="docutils literal notranslate"><span class="pre">validate_model</span></code> function.</p>
+<p>The function should split the features and targets into train and test subsets, like this 50:50 split for features:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">split</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span>
+<span class="n">train_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[:</span><span class="n">split</span><span class="p">]</span>
+<span class="n">test_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
+</pre></div>
+</div>
+<p>Your function should then use the training split (<code class="docutils literal notranslate"><span class="pre">train_features</span></code> and <code class="docutils literal notranslate"><span class="pre">train_targets</span></code>) to train the model.</p>
+<p>Finally, it should measure the accuracy of the model using <code class="docutils literal notranslate"><span class="pre">median_diff</span></code> on the <code class="docutils literal notranslate"><span class="pre">test_targets</span></code> and the predicted redshifts from <code class="docutils literal notranslate"><span class="pre">test_features</span></code>.</p>
+<p>The function should take 3 arguments:</p>
+<ul class="simple">
+<li><p>model: the decision tree regressor;</p></li>
+<li><p>features - the features for the data set;</p></li>
+<li><p>targets - The targets for the data set.</p></li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">Hint: keep features and targets together!</p>
+<p>When splitting the <code class="docutils literal notranslate"><span class="pre">features</span></code> and <code class="docutils literal notranslate"><span class="pre">targets</span></code> be careful to ensure that the <code class="docutils literal notranslate"><span class="pre">train_features</span></code> have the correct <code class="docutils literal notranslate"><span class="pre">train_targets</span></code>, i.e. <code class="docutils literal notranslate"><span class="pre">train_features[0]</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">train_targets[0]</span></code> etc.</p>
+</div>
+</section>
+</section>
+<section id="exploring-the-output-tree">
+<h2>Exploring the output tree<a class="headerlink" href="#exploring-the-output-tree" title="Permalink to this headline">#</a></h2>
+<p>But what does the decision tree actually look like?</p>
+<p><img alt="Decision tree visualization" src="https://groklearning-cdn.com/modules/E3u6xHw8LC8V75vTJ5ZvdG/decision_tree.jpg" /></p>
+<p>You can see how the decision is made at each node as well as the number of samples which reach that node.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pydotplus</span> <span class="k">as</span> <span class="nn">pydotplus</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span><span class="p">,</span> <span class="n">export_graphviz</span>
+
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+<span class="n">features</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Initialize model</span>
+<span class="n">dtr</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>    <span class="c1"># We will come to this input in the next tutorial</span>
+
+<span class="c1"># Split the data into training and testing</span>
+<span class="n">split_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
+<span class="n">train_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[:</span><span class="n">split_index</span><span class="p">]</span>
+<span class="n">train_targets</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[:</span><span class="n">split_index</span><span class="p">]</span>
+
+<span class="n">dtr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">)</span>
+
+<span class="n">dot_data</span> <span class="o">=</span> <span class="n">export_graphviz</span><span class="p">(</span><span class="n">dtr</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">feature_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;u - g&#39;</span><span class="p">,</span> <span class="s1">&#39;g - r&#39;</span><span class="p">,</span> <span class="s1">&#39;r - i&#39;</span><span class="p">,</span> <span class="s1">&#39;i - z&#39;</span><span class="p">])</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">pydotplus</span><span class="o">.</span><span class="n">graph_from_dot_data</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">write_jpg</span><span class="p">(</span><span class="s2">&quot;output/decision_tree.jpg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/5.ipynb Cell 23</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/5.ipynb#ch0000027?line=0&#39;</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">----&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/5.ipynb#ch0000027?line=1&#39;</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="nn">pydotplus</span> <span class="k">as</span> <span class="nn">pydotplus</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/5.ipynb#ch0000027?line=2&#39;</span><span class="o">&gt;</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span><span class="p">,</span><span class="n">export_graphviz</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/arunkannawadi/Desktop/code/data-driven-astronomy/data_driven_astronomy/5.ipynb#ch0000027?line=4&#39;</span><span class="o">&gt;</span><span class="mi">5</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">def</span> <span class="nf">get_features_targets</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pydotplus&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The median of differences of <span class="math notranslate nohighlight">\(\approx 0.02\)</span>.
+This means that half of our galaxies have a error in the prediction of <span class="math notranslate nohighlight">\(\lt 0.02\)</span>, which is pretty good.
+One of the reason we chose the median of differences as our accuracy measure is that it gives a fair representation of the errors especially when the distribution of errors is skewed.
+The graph below shows the distribution of residuals (differences) for our model along with the median and interquartile values.</p>
+<p><img alt="Residual distribution" src="https://groklearning-cdn.com/modules/7sF2Vds9J4hmG39GYztEPD/residuals.png" /></p>
+<p>As you can tell the distribution is very skewed. We have zoomed in here, but the tail of the distribution goes all the way out to 6.</p>
+<section id="the-effect-of-training-set-size">
+<h3>The effect of training set size<a class="headerlink" href="#the-effect-of-training-set-size" title="Permalink to this headline">#</a></h3>
+<p>The number of galaxies we use to train the model has a big impact on how accurate our predictions will be.
+This is the same with most machine learning methods: the more data that they are trained with, the more accurate their prediction will be.</p>
+<p>Here is how our median difference changes with training set size:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Training</span> <span class="n">galaxies</span>	<span class="n">median_diff</span>
+<span class="mi">50</span>	<span class="mf">0.048</span>
+<span class="mi">500</span>	<span class="mf">0.026</span>
+<span class="mi">5000</span>	<span class="mf">0.023</span>
+<span class="mi">50000</span>	<span class="mf">0.022</span>
+</pre></div>
+</div>
+<p>Understanding how the accuracy of the model changes with sample size is important to understanding the limitations of our model.
+We are approaching the accuracy limit of the decision tree model (for our redshift problem) with a training sample size of 25,000 galaxies.</p>
+<p>The only way we could further improve our model would be to use more features.
+This might include more colour indices or even the errors associated with the measured flux magnitudes.</p>
+</section>
+<section id="before-machine-learning">
+<h3>Before machine learning<a class="headerlink" href="#before-machine-learning" title="Permalink to this headline">#</a></h3>
+<p>Before machine learning, we would have tried to solve this problem with regression — by constructing an empirical model to predict how the dependent variable (redshift) varies with one or more independent variables (the colour indices).</p>
+<p>A plot of how the colours change with redshift tells us that it is quite a complex function, for example redshift versus <em>u - g</em>:</p>
+<p><img alt="Redshift vs. u-g colour" src="https://groklearning-cdn.com/problems/SKULeCQhsJ4Ew7DtbPd6ri/redshift-U-G.png" /></p>
+<p>One approach would be to construct a multi-variate non-linear regression model.
+Perhaps using a least squares fitting to try and determine the best fit parameters.
+The model would be quite complex; based on the above plot, a dampened inverse sine function would be a good starting point for such a model.</p>
+<p>While we could try such an approach the function would be overly complex and there is no guarantee that it would yield very promising results.
+Another approach would be to plot a colour-index vs colour-index plot using an additional colour scale to show redshift.
+The following plot is an example of such a plot.</p>
+<p><img alt="Colour colour redshift plot" src="https://groklearning-cdn.com/problems/PEBuctPTbbMiee3vv9tkL3/redshift-colour-colour.png" /></p>
+<p>It shows that we get reasonably well defined regions where redshifts are similar.
+If we were to make a contour map of the redshifts in the colour index vs colour index space we would be able to get an estimate of the redshift for new data points based on a combination of their colour indices.
+This would lead to redshift estimates with significant uncertainties attached to them.</p>
+<p>In the next problem you will re-create the Colour-index vs Colour-index plot with redshift as colour bar.</p>
+</section>
+<section id="exercise-colour-colour-redshift-plot">
+<h3>Exercise: Colour Colour Redshift plot<a class="headerlink" href="#exercise-colour-colour-redshift-plot" title="Permalink to this headline">#</a></h3>
+<p>Your task here is to simply recreate the plot above.</p>
+<p>You should use the <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> module of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> which has already been imported and can be accessed through <code class="docutils literal notranslate"><span class="pre">plt</span></code>.
+In particular you can use the <code class="docutils literal notranslate"><span class="pre">plt.scatter()</span></code> function, with additional arguments <code class="docutils literal notranslate"><span class="pre">s</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">cmap</span></code>.</p>
+<p>We are interested in the <em>u - g</em> and <em>r - i</em> colour indices.</p>
+<p>You can make use of the <code class="docutils literal notranslate"><span class="pre">plt.colorbar()</span></code> function to show your scatter plots colour argument(<code class="docutils literal notranslate"><span class="pre">c</span></code>) to a colour bar on the side of the plot.</p>
+<p>Make sure you implement <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> labels and give your plot a title.</p>
+<div class="tip admonition">
+<p class="admonition-title">Gotchas</p>
+<p>In order to get your plot working with colours you will need to set the optional parameter <code class="docutils literal notranslate"><span class="pre">lw=number</span></code>.
+There are a lot of small points and unless we set the linewidth to zero the line surrounding each point will block out the point itself.</p>
+<p>You should also specify the size of your plot points with the additional call arguments <code class="docutils literal notranslate"><span class="pre">s=number</span></code>.
+A reasonable place to start might be 1, but see what it looks like.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+<span class="c1"># Complete the following to make the plot</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/sdss_galaxy_colors.npy&#39;</span><span class="p">)</span>
+
+<span class="c1"># Get a colour map</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;YlOrRd&#39;</span><span class="p">)</span>
+
+<span class="c1"># Define our colour indexes u-g and r-i</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
+<span class="c1"># Make a redshift array</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;redshift&#39;</span><span class="p">]</span>
+
+<span class="c1"># Create the plot with plt.scatter and plt.colorbar</span>
+<span class="n">number</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">z</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="n">number</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">number</span><span class="p">)</span>
+
+<span class="c1"># Define your axis labels and plot title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;u-g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;r-i&#39;</span><span class="p">)</span>
+<span class="c1"># Set any axis limits</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.49</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>In this activity, we implemented some decision tree models to help predict the redshift of galaxies based on their measured colour indices.
+We learnt that there are several ways to assess the accuracy of the model and in our validations we used the median of the residuals.</p>
+<p>We touched on how the problem might be approached without machine learning and found that there isn’t too much available that can be simply used.</p>
+<p>We also learnt why we need to cross validate the model and that this is done by splitting the data into seperate training and testing subsets.
+We will look at k-fold cross validation in the next tutorial; where the testing and training are changed to include various combinations of <span class="math notranslate nohighlight">\(k\)</span> seperate subsets.</p>
+<p>In the next tutorial we will also explore how decision trees have a tendency to overfit the data.</p>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "arunkannawadi/data-driven-astronomy",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "data-driven-astronomy"
+        },
+        kernelOptions: {
+            kernelName: "data-driven-astronomy",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'data-driven-astronomy'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="week3/3a.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">What is a database?</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="5b.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Improving and evaluating our classifier</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Tara Murphy, Dr. Simon Murphy<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
